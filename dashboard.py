@@ -60,12 +60,16 @@ def calculate_rfm(fix_orders_df, fix_order_payments_df):
     return rfm_df
 
 with st.sidebar:
+    # Menambahkan judul dan developer
+    st.header("Data Explanatory")
+    st.markdown("Developer by Khoirun Niswa")
+
     # Menambahkan logo perusahaan
     st.image("logo.jpg", use_column_width=True)
 
     selected_dataset = st.sidebar.selectbox(
     "Select Dataset",
-    ("Orders_Customers", "Order_Payments","RFM Analysis")
+    ("Pelanggan Terbanyak", "Tingkat Keberhasilan", "Order Payments", "RFM Analysis")
     )
 
 # Set page title
@@ -92,7 +96,7 @@ def visualize_by_state(df):
         ax.text(bar.get_x() + bar.get_width()/2, yval, round(yval, 2), va='bottom', ha='center', fontsize=8)
 
     # Displaying the plot using Streamlit
-    st.subheader("Number of Customers by State")
+    st.subheader("Pelanggan Terbanyak Berdasarkan Lokasi (State)")
     st.pyplot(fig)
     st.caption("pelangan dengan wilayah state code SP menempati peringkat pertama sebagai pelanggan terbanyak di wilayah tersebut dengan jumlah 41.746 pelanggan")
 
@@ -115,7 +119,7 @@ def visualize_by_payment_type(df):
         ax.text(bar.get_x() + bar.get_width()/2, yval, round(yval, 2), va='bottom', ha='center', fontsize=8)
 
     # Displaying the plot using Streamlit
-    st.subheader("Number of Transactions by Payment Type")
+    st.subheader("Metode Pembayaran Pelanggan")
     st.pyplot(fig)
     st.caption("metode pembayaran yang paling banyak digunakan adalah metode pembayaran melalui credit card yakni sebanyak 76.795 kali.")
 
@@ -139,7 +143,7 @@ def visualize_by_order_status(df):
         ax.text(xval, bar.get_y() + bar.get_height()/2, round(xval, 2), va='center', ha='left', fontsize=8)
 
     # Displaying the plot using Streamlit
-    st.subheader("Number of Customers by Order Status")
+    st.subheader("Tingkat Kerberhasilan Pengiriman Berdasarkan Status")
     st.pyplot(fig)
     st.caption("sebanyak 96.478 pelangan dari total 99.441 telah ber status delivered yang menunjukkan tingkat keberhasilan yang tinggi dalam pengiriman pesanan kepada pelanggan.")
 
@@ -209,11 +213,13 @@ Barchart diatas menunjukkan bahwa rata-rata frekuensi pembelian oleh pelanggan y
 Barchart diatas menunjukkan bahwa rata-rata total nilai pembelian oleh pelanggan menunjukkan bahwa pelanggan menghabiskan sekitar 161 dollar dalam pembelian mereka dalam periode 90 hari terakhir.""")
 
 # Check selected dataset
-if selected_dataset == "Orders_Customers":
+if selected_dataset == "Pelanggan Terbanyak":
     visualize_by_state(orders_customers_df)
-    visualize_by_order_status(orders_customers_df)
 
-elif selected_dataset == "Order_Payments":
+elif selected_dataset == "Tingkat Keberhasilan":
+   visualize_by_order_status(orders_customers_df)
+
+elif selected_dataset == "Order Payments":
     visualize_by_payment_type(order_payments_df)
 
 elif selected_dataset == "RFM Analysis":
